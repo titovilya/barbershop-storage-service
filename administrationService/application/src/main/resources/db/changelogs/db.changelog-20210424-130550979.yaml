@@ -1,0 +1,81 @@
+databaseChangeLog:
+- changeSet:
+    id: 1619269561511-1
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rolesPK
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: description
+            type: VARCHAR(128)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        tableName: roles
+- changeSet:
+    id: 1619269561511-2
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: usersPK
+            name: id
+            type: UUID
+        - column:
+            name: birthday
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(64)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: phone
+            type: VARCHAR(20)
+        - column:
+            name: surname
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: username
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: role_code
+            type: VARCHAR(255)
+        tableName: users
+- changeSet:
+    id: 1619269561511-3
+    author: titov (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_code
+        baseTableName: users
+        constraintName: FKqitn4yl3nrjxv4lj3r6i23evc
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: code
+        referencedTableName: roles
+        validate: true
+

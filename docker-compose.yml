@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: 'postgres:13.1-alpine'
+    container_name: database
+    environment:
+      - POSTGRES_USER=service_user
+      - POSTGRES_PASSWORD=service_user
+      - POSTGRES_DB=reference
+    ports:
+      - "5433:5433"
+    expose:
+      - "5433"
+    networks:
+      - service-network
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    command: postgres -p 5433
+
+  backend_app:
+    image: 'app:latest'
+    build: administrationService/application/src/main/docker
+    container_name: backend_app
+    restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/reference
+      - SPRING_DATASOURCE_USERNAME=service_user
+      - SPRING_DATASOURCE_PASSWORD=service_user
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+    expose:
+      - "8085"
+    ports:
+      - "8085:8085"
+    depends_on:
+      - database
+    volumes:
+      - service-volume:/var/lib/spring-cloud/config-repo
+    networks:
+      - service-network
+
+networks:
+  service-network:
+    driver: bridge
+
+volumes:
+  service-volume:
+    driver: local
+  database-data:
