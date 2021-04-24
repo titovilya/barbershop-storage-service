@@ -1,6 +1,6 @@
 package model.repositories;
 
-import model.models.User;
+import model.models.Client;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +10,15 @@ import java.util.UUID;
 
 
 @Repository
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface ClientRepository extends CrudRepository<Client, UUID> {
 
-    boolean existsByUsername(String username);
+    boolean existsByPhone(String phone);
 
-    User findByUsername(String username);
+    Client findByPhone(String phone);
 
-    List<User> findAll();
+    List<Client> findAll();
 
     @Transactional
-    void deleteByUsername(String username);
+    void deleteByPhone(String phone);
+
 }

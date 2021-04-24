@@ -1,8 +1,9 @@
 package services;
 
+
 public interface InitialService {
 
-    void createDefaultRole();
+    void createEmployeeRole();
 
     void createAdminRole();
 

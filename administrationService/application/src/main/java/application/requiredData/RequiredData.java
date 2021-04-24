@@ -16,7 +16,7 @@ public class RequiredData implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        initialService.createDefaultRole();
+        initialService.createEmployeeRole();
         initialService.createAdminRole();
         initialService.createSuperUser();
     }

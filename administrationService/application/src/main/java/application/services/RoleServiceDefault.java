@@ -27,7 +27,7 @@ public class RoleServiceDefault implements RoleService {
         final Role role = roleRepository.findByCode(code);
         if (role == null) {
             final String msg = String.format("%s [%s] was not found", Role.class.getName(),  code);
-            throw new CustomException(msg, HttpStatus.NOT_FOUND);
+            throw new CustomException(msg, HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return role;
     }

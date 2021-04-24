@@ -1,0 +1,207 @@
+databaseChangeLog:
+- changeSet:
+    id: 1619290743706-1
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: appointmentPK
+            name: id
+            type: VARCHAR(255)
+        - column:
+            name: date_from
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: date_to
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: client_id
+            type: UUID
+        - column:
+            name: service_id
+            type: VARCHAR(255)
+        - column:
+            name: user_id
+            type: UUID
+        tableName: appointment
+- changeSet:
+    id: 1619290743706-2
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: clientsPK
+            name: id
+            type: UUID
+        - column:
+            name: email
+            type: VARCHAR(64)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: phone
+            type: VARCHAR(64)
+        - column:
+            name: registration_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: clients
+- changeSet:
+    id: 1619290743706-3
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rolesPK
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: description
+            type: VARCHAR(128)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        tableName: roles
+- changeSet:
+    id: 1619290743706-4
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: servicesPK
+            name: id
+            type: VARCHAR(255)
+        - column:
+            name: description
+            type: VARCHAR(128)
+        - column:
+            name: duration
+            type: TIME WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: price
+            type: INTEGER
+        tableName: services
+- changeSet:
+    id: 1619290743706-5
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: usersPK
+            name: id
+            type: UUID
+        - column:
+            name: birthday
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(64)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: phone
+            type: VARCHAR(20)
+        - column:
+            name: surname
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: username
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: role_code
+            type: VARCHAR(255)
+        tableName: users
+- changeSet:
+    id: 1619290743706-6
+    author: titov (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: service_id
+        baseTableName: appointment
+        constraintName: FK5ixajc1q1xjyvjnqiasyjuqqx
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: services
+        validate: true
+- changeSet:
+    id: 1619290743706-7
+    author: titov (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: appointment
+        constraintName: FK7bo52i6usixwb7ira9l16y3bu
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1619290743706-8
+    author: titov (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: client_id
+        baseTableName: appointment
+        constraintName: FKni4hs6h0bbqj8cc16hccppuuu
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: clients
+        validate: true
+- changeSet:
+    id: 1619290743706-9
+    author: titov (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_code
+        baseTableName: users
+        constraintName: FKqitn4yl3nrjxv4lj3r6i23evc
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: code
+        referencedTableName: roles
+        validate: true
+

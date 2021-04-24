@@ -21,12 +21,12 @@ public class RequiredService implements InitialService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void createDefaultRole() {
-        if (!roleService.existsByCode("default")) {
+    public void createEmployeeRole() {
+        if (!roleService.existsByCode("employee")) {
             Role role = new Role();
-            role.setCode("default");
-            role.setName("default");
-            role.setDescription("Role for default users");
+            role.setCode("employee");
+            role.setName("employee");
+            role.setDescription("Role for default/employee users");
             roleService.save(role);
         }
     }

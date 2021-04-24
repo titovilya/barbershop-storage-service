@@ -12,15 +12,13 @@ import services.UserService;
 
 
 @Service
-public class CalendarEmployeeDetails implements UserDetailsService {
-
+public class ServiceEmployeeDetails implements UserDetailsService {
 
     private final UserService userService;
 
-    public CalendarEmployeeDetails(UserService userService) {
+    public ServiceEmployeeDetails(UserService userService) {
         this.userService = userService;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

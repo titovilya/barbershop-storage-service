@@ -15,15 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import security.services.CalendarEmployeeDetails;
+import security.services.ServiceEmployeeDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -33,13 +31,13 @@ public class JwtTokenProvider {
     private final String secretKey;
     private final long validityInMinutes;
     private final String bearerPrefix = "Bearer ";
-    private final CalendarEmployeeDetails calendarEmployeeDetails;
+    private final ServiceEmployeeDetails serviceEmployeeDetails;
 
     public JwtTokenProvider(@Value("${security.jwt.token.secret-key}") String secretKey,
                             @Value("${security.jwt.token.expire-length}") long validityInMinutes,
-                            CalendarEmployeeDetails calendarEmployeeDetails) {
+                            ServiceEmployeeDetails serviceEmployeeDetails) {
         this.validityInMinutes = validityInMinutes;
-        this.calendarEmployeeDetails = calendarEmployeeDetails;
+        this.serviceEmployeeDetails = serviceEmployeeDetails;
         this.secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
@@ -60,7 +58,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = calendarEmployeeDetails.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = serviceEmployeeDetails.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
