@@ -3,7 +3,9 @@ package services;
 import model.models.Appointment;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 public interface AppointmentService {
@@ -19,7 +21,7 @@ public interface AppointmentService {
 
     void save(Appointment appointment);
 
-    List<Appointment> findByClient(String id);
+    List<Appointment> findByClient(UUID id);
 
-    List<Appointment> findByUser(String id);
+    List<Appointment> findByUser(UUID id);
 }

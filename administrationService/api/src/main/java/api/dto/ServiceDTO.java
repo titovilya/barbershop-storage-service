@@ -17,6 +17,5 @@ public class ServiceDTO {
 
     private int price;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime duration;
+    private int duration;
 }

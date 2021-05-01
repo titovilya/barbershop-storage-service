@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         // Entry points
         http.authorizeRequests()//
                 .antMatchers("/users/signin").permitAll()//
-                .antMatchers("/users/signup").permitAll()
+                .antMatchers("/users/signup").permitAll()//
                 // Disallow everything else..
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
@@ -58,7 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers("/swagger-resources/**")//
                 .antMatchers("/webjars/**")//
                 .antMatchers("/configuration/**")//
-                .antMatchers("/public");
+                .antMatchers("/swagger-resources")//
+                .antMatchers("/swagger-ui.html")//
+                .antMatchers("/v2/api-docs");
     }
 
     @Bean

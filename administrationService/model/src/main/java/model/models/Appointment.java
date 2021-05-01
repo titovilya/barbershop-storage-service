@@ -18,17 +18,20 @@ public class Appointment {
     private String id;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private User user;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Client client;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Service service;
 
-    @Column(name = "date_from", columnDefinition = "TIMESTAMP")
+    @Column(name = "date_from", columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime dateFrom;
 
-    @Column(name = "date_to", columnDefinition = "TIMESTAMP")
+    @Column(name = "date_to", columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime dateTo;
 }

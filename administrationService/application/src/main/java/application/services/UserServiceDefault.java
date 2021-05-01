@@ -21,10 +21,6 @@ public class UserServiceDefault implements UserService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    private final RoleService roleService;
-
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -57,8 +53,6 @@ public class UserServiceDefault implements UserService {
     @Override
     public void save(User user) {
         if (!userRepository.existsByUsername(user.getUsername())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole(roleService.findByCode(user.getRole().getCode()));
             userRepository.save(user);
         } else {
             final String msg = String.format("%s [%s] is already exist", User.class.getName(),  user.getUsername());

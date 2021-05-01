@@ -7,6 +7,7 @@ import model.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import security.services.AuthService;
 import services.UserService;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class UserController {
     private final UserMapper userMapper;
 
     private final UserService userService;
+
+    private final AuthService authService;
 
     @GetMapping("/{username}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String username) {
@@ -43,7 +46,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
         User user = userMapper.toEntity(userDTO);
-        userService.save(user);
+        authService.signup(user);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

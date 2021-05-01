@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import security.JWT.JwtTokenProvider;
 import security.exceptions.CustomException;
+import services.RoleService;
 import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,10 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     private final UserService userService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final RoleService roleService;
 
 
     public String signin(String username, String password) {
@@ -40,6 +46,17 @@ public class AuthService {
 
     public String refresh(String email) {
         return jwtTokenProvider.createToken(email, userService.findByUsername(email).getRole());
+    }
+
+    public String signup(User user) {
+        if (!userService.existsByUsername(user.getUsername())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole(roleService.findByCode(user.getRole().getCode()));
+            userService.save(user);
+            return jwtTokenProvider.createToken(user.getUsername(), user.getRole());
+        } else {
+            throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
 }

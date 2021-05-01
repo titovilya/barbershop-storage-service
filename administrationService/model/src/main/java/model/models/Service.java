@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalTime;
 
 
@@ -25,6 +26,6 @@ public class Service {
 
     private int price;
 
-    @Column(columnDefinition = "TIME")
-    private LocalTime duration;
+    @Column(nullable = false)
+    private int duration;
 }
