@@ -73,7 +73,7 @@
                 <version>4.3.1</version>
                 <configuration>
                     <skip>false</skip>
-                    <url>jdbc:postgresql://localhost:5433/reference</url>
+                    <url>jdbc:postgresql://database:5433/reference</url>
                     <username>service_user</username>
                     <password>service_user</password>
                     <driver>org.postgresql.Driver</driver>

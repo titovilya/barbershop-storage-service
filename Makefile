@@ -1,5 +1,5 @@
 repack-app:
-	cd referenceService \
+	cd administrationService \
 	&& mvn clean package -DskipTests \
 	&& cp application/target/application-1.0-SNAPSHOT.jar application/src/main/docker \
 	&& cd ../ \

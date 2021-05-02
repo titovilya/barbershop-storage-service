@@ -25,14 +25,14 @@ services:
     container_name: backend_app
     restart: unless-stopped
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/reference
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5433/reference
       - SPRING_DATASOURCE_USERNAME=service_user
       - SPRING_DATASOURCE_PASSWORD=service_user
       - SPRING_JPA_HIBERNATE_DDL_AUTO=none
     expose:
-      - "8085"
+      - "8080"
     ports:
-      - "8085:8085"
+      - "8080:8080"
     depends_on:
       - database
     volumes:
