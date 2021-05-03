@@ -19,12 +19,7 @@ public class UserDTO {
 
     private String name;
 
-    private String surname;
-
     private String username;
-
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate birthday;
 
     private String phone;
 

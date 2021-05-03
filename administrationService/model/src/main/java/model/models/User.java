@@ -4,7 +4,6 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -27,14 +26,8 @@ public class User {
     @Column(length = 30)
     private String name;
 
-    @Column(length = 30)
-    private String surname;
-
     @Column(length = 30, nullable = false)
     private String username;
-
-    @Column(columnDefinition = "DATE")
-    private LocalDate birthday;
 
     @Column(length = 20)
     private String phone;

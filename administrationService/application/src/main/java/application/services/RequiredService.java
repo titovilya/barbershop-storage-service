@@ -50,7 +50,6 @@ public class RequiredService implements InitialService {
             user.setPassword(passwordEncoder.encode("owner"));
             user.setRole(roleService.findByCode("admin"));
             user.setName("Ilya");
-            user.setSurname("Titov");
             user.setUsername("owner");
             userService.save(user);
         }
