@@ -23,5 +23,5 @@ public interface AppointmentService {
 
     List<Appointment> findByClient(UUID id);
 
-    List<Appointment> findByUser(UUID id);
+    List<Appointment> findByStaff(String id);
 }

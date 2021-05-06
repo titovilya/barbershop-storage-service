@@ -19,7 +19,7 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private User user;
+    private Staff staff;
 
     @ManyToOne
     @JoinColumn(nullable = false)

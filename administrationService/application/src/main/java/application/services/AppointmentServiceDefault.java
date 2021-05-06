@@ -57,13 +57,13 @@ public class AppointmentServiceDefault implements AppointmentService {
     @Override
     public void save(Appointment appointment) {
         LocalDateTime dateFrom = appointment.getDateFrom();
-        UUID user_id = appointment.getUser().getId();
+        String user_id = appointment.getStaff().getId();
         Long inputDuration = Duration.between(appointment.getDateFrom(), appointment.getDateTo()).toMinutes();
         int serviceDuration = serviceService.findById(appointment.getService().getId()).getDuration();
         if (inputDuration != serviceDuration) {
             final String msg = String.format("Duration of service is %d is not equal to input duration %d", serviceDuration, inputDuration);
             throw new CustomException(msg, HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if (!(appointmentRepository.findByDateFromAndUser_Id(dateFrom, user_id).size() > 0)) {
+        } else if (!(appointmentRepository.findByDateFromAndStaff_Id(dateFrom, user_id).size() > 0)) {
             appointmentRepository.save(appointment);
         } else {
             final String msg = "Chosen time and employee already in use. Choose another one.";
@@ -77,7 +77,7 @@ public class AppointmentServiceDefault implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> findByUser(UUID id) {
-        return appointmentRepository.findByUser_Id(id);
+    public List<Appointment> findByStaff(String id) {
+        return appointmentRepository.findByStaff_Id(id);
     }
 }

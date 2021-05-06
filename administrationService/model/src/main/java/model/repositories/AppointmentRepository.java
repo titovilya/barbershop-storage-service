@@ -21,7 +21,7 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Strin
 
     List<Appointment> findByClient_Id(UUID id);
 
-    List<Appointment> findByUser_Id(UUID id);
+    List<Appointment> findByStaff_Id(String id);
 
-    List<Appointment> findByDateFromAndUser_Id(LocalDateTime dateFrom, UUID id);
+    List<Appointment> findByDateFromAndStaff_Id(LocalDateTime dateFrom, String id);
 }
