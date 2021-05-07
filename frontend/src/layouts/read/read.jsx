@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PageTitle } from '../../components/pageTitle/pageTitle';
-import { get, edit } from '../../server';
+import { simpleServer } from './../../server/simple';
 
 /* PROPS
 pageTitle
@@ -16,21 +16,15 @@ export class PageRead extends React.Component {
     };
 
     async componentDidMount() {
-        const res = await get(`/${this.props.uri}/${this.props.id}`);
-        console.log(res)
+        const res = await simpleServer[this.props.uri].getCurr();
         this.setState({
             fields: res,
             isLoading: true
         });
     }
 
-    onSubmit = async () => {
-        await edit(`/${this.props.uri}/${this.props.id}`, Object.assign(this.state.fields));
-        window.location.pathname = `/${this.props.uri}`;
-    }
-
     render() {
-        const formScheme = [{ field: 'id', name: 'ID' }, ...this.props.formScheme];
+        const formScheme = [{ field: 'id', title: 'ID' }, ...this.props.formScheme];
 
         return (
             <div className="container">
@@ -39,7 +33,7 @@ export class PageRead extends React.Component {
                     this.state.isLoading && Object.keys(this.state.fields).map((item, key) => {
                         return (
                             <div style={{display: 'flex', alignItems: 'center'}} key={key}>
-                                <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{formScheme[key].name}:</div>&nbsp;&nbsp;<div>{this.state.fields[item]}</div>
+                                <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{formScheme[key].title}:</div>&nbsp;&nbsp;<div>{this.state.fields[item]}</div>
                             </div>
                         )
                     })

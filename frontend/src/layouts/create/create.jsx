@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { TextInput } from 'react-materialize';
 import { PageTitle } from '../../components/pageTitle/pageTitle';
-import { create } from '../../server';
+import { simpleServer } from './../../server/simple';
 
 /* PROPS
 pageTitle
@@ -18,8 +19,8 @@ export class PageCreate extends React.Component {
     }
 
     onSubmit = async () => {
-       await create(`/${this.props.uri}/create`, Object.assign(this.state));
-       window.location.pathname = `/${this.props.uri}`;
+        await simpleServer[this.props.uri].create(Object.assign(this.state));
+        window.location.pathname = `/${this.props.uri}`;
     }
 
     render() {
@@ -32,8 +33,12 @@ export class PageCreate extends React.Component {
                             this.props.formScheme.map((item, key) => (
                                 <div key={key} className="row">
                                     <div className="input-field col s6">
-                                        <input onChange={(e) => this.setState({ [item.field]: e.target.value })} id={item.field} type="text" className="validate" />
-                                        <label htmlFor={item.field}>{item.name}</label>
+                                        <TextInput
+                                            label={item.label}
+                                            value={this.state[item.name]}
+                                            onChange={(e) => this.setState({ [item.name]: e.target.value })}
+                                            s={12}
+                                        />
                                     </div>
                                 </div>
                             ))

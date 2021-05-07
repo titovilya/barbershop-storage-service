@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import model.models.Client;
 import model.models.Service;
-import model.models.User;
+import model.models.Staff;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +14,7 @@ public class AppointmentDTO {
 
     private String id;
 
-    private User user;
+    private Staff staff;
 
     private Client client;
 

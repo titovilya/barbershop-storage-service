@@ -1,6 +1,7 @@
 package api.mappers;
 
 import api.dto.AppointmentDTO;
+import api.dto.AppointmentResponseDTO;
 import model.models.Appointment;
 import org.mapstruct.*;
 
@@ -23,6 +24,20 @@ public interface AppointmentMapper {
     AppointmentDTO toDTO(Appointment appointment);
 
     List<AppointmentDTO> listToDTO(List<Appointment> appointments);
+
+    @Mappings({
+            @Mapping(target = "dateFrom", source = "date_from"),
+            @Mapping(target = "dateTo", source = "date_to"),
+    })
+    Appointment responseToEntity(AppointmentResponseDTO dto);
+
+    @Mappings({
+            @Mapping(target = "date_from", source = "dateFrom"),
+            @Mapping(target = "date_to", source = "dateTo"),
+    })
+    AppointmentResponseDTO responseToDto(Appointment appointment);
+
+    List<AppointmentResponseDTO> listToResponseDTO(List<Appointment> appointments);
 
     @Mappings({
             @Mapping(target = "dateFrom", source = "date_from"),

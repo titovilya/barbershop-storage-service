@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1619811826107-1
+    id: 1620215697913-1
     author: titov (generated)
     changes:
     - createTable:
@@ -35,11 +35,11 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: user_id
-            type: UUID
+            name: staff_id
+            type: VARCHAR(255)
         tableName: appointment
 - changeSet:
-    id: 1619811826107-2
+    id: 1620215697913-2
     author: titov (generated)
     changes:
     - createTable:
@@ -67,7 +67,7 @@ databaseChangeLog:
             type: TIMESTAMP WITHOUT TIME ZONE
         tableName: clients
 - changeSet:
-    id: 1619811826107-3
+    id: 1620215697913-3
     author: titov (generated)
     changes:
     - createTable:
@@ -87,7 +87,7 @@ databaseChangeLog:
             type: VARCHAR(30)
         tableName: roles
 - changeSet:
-    id: 1619811826107-4
+    id: 1620215697913-4
     author: titov (generated)
     changes:
     - createTable:
@@ -99,9 +99,6 @@ databaseChangeLog:
               primaryKeyName: servicesPK
             name: id
             type: VARCHAR(255)
-        - column:
-            name: description
-            type: VARCHAR(128)
         - column:
             constraints:
               nullable: false
@@ -119,7 +116,35 @@ databaseChangeLog:
             type: INTEGER
         tableName: services
 - changeSet:
-    id: 1619811826107-5
+    id: 1620215697913-5
+    author: titov (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: staffPK
+            name: id
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(64)
+        - column:
+            name: name
+            type: VARCHAR(30)
+        - column:
+            name: phone
+            type: VARCHAR(20)
+        - column:
+            name: position
+            type: VARCHAR(30)
+        tableName: staff
+- changeSet:
+    id: 1620215697913-6
     author: titov (generated)
     changes:
     - createTable:
@@ -131,9 +156,6 @@ databaseChangeLog:
               primaryKeyName: usersPK
             name: id
             type: UUID
-        - column:
-            name: birthday
-            type: date
         - column:
             constraints:
               nullable: false
@@ -151,9 +173,6 @@ databaseChangeLog:
             name: phone
             type: VARCHAR(20)
         - column:
-            name: surname
-            type: VARCHAR(30)
-        - column:
             constraints:
               nullable: false
             name: username
@@ -165,7 +184,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: users
 - changeSet:
-    id: 1619811826107-6
+    id: 1620215697913-7
     author: titov (generated)
     changes:
     - addForeignKeyConstraint:
@@ -178,20 +197,20 @@ databaseChangeLog:
         referencedTableName: services
         validate: true
 - changeSet:
-    id: 1619811826107-7
+    id: 1620215697913-8
     author: titov (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: user_id
+        baseColumnNames: staff_id
         baseTableName: appointment
-        constraintName: FK7bo52i6usixwb7ira9l16y3bu
+        constraintName: FK6j70i8k4wu1m1aahlty936m76
         deferrable: false
         initiallyDeferred: false
         referencedColumnNames: id
-        referencedTableName: users
+        referencedTableName: staff
         validate: true
 - changeSet:
-    id: 1619811826107-8
+    id: 1620215697913-9
     author: titov (generated)
     changes:
     - addForeignKeyConstraint:
@@ -204,7 +223,7 @@ databaseChangeLog:
         referencedTableName: clients
         validate: true
 - changeSet:
-    id: 1619811826107-9
+    id: 1620215697913-10
     author: titov (generated)
     changes:
     - addForeignKeyConstraint:

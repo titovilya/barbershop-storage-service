@@ -4,25 +4,27 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalTime;
-
+import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "services")
-public class Service {
+@Table(name = "staff")
+public class Staff {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false, length = 64)
+    private String email;
+
+    @Column(length = 30)
     private String name;
 
-    private int price;
+    @Column(length = 30)
+    private String position;
 
-    @Column(nullable = false)
-    private int duration;
+    @Column(length = 20)
+    private String phone;
 }

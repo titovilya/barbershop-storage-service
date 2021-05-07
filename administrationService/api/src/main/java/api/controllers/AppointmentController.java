@@ -1,6 +1,8 @@
 package api.controllers;
 
 import api.dto.AppointmentDTO;
+import api.dto.AppointmentRequestDTO;
+import api.dto.AppointmentResponseDTO;
 import api.mappers.AppointmentMapper;
 import lombok.RequiredArgsConstructor;
 import model.models.Appointment;
@@ -31,6 +33,13 @@ public class AppointmentController {
     public ResponseEntity<List<AppointmentDTO>> getAppointments() {
         List<Appointment> appointments = appointmentService.findAll();
         return new ResponseEntity<>(appointmentMapper.listToDTO(appointments), HttpStatus.OK);
+    }
+
+    @PostMapping("/get-schedule")
+    public ResponseEntity<List<AppointmentResponseDTO>> getSchedule(@RequestBody AppointmentRequestDTO appointmentRequestDTO) {
+        List<Appointment> appointments = appointmentService.findByStaffAndDate(appointmentRequestDTO.getDate_from(), appointmentRequestDTO.getStaff_id());
+        List<AppointmentResponseDTO> appointmentResponseDTOs = appointmentMapper.listToResponseDTO(appointments);
+        return new ResponseEntity<>(appointmentResponseDTOs, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
