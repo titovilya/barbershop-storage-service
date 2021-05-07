@@ -55,11 +55,10 @@ export class RecordCreate extends React.Component {
     dateHandleChange = async (value) => {
         if (this.state.fields.staff) {
             this.inputsHandleChange(value, 'date');
-            const time = await simpleServer[this.props.uri].getTimes();
+            const time = await simpleServer[this.props.uri].getTimes(this.state.time, this.state.staff);
             this.setState({ time });
             return;
         }
-        document.querySelector('.datepicker').value = '';
     }
 
     onSubmit = async () => {
@@ -67,6 +66,13 @@ export class RecordCreate extends React.Component {
 
         // }));
         // window.location.pathname = `/${this.props.uri}`;
+    }
+
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
@@ -83,7 +89,7 @@ export class RecordCreate extends React.Component {
                     </div>
                     <div className="input-field col s4">
                         <TextInput
-                            label='Телефон'
+                            label='Телефон клиента'
                             s={12}
                             onChange={(e) => this.inputsHandleChange(e.target.value, 'phone')}
                         />
@@ -97,9 +103,9 @@ export class RecordCreate extends React.Component {
                             s={12}
                             onChange={(e) => this.inputsHandleChange(e.target.value, 'service')}
                         >
-                            <option value="" disabled selected>Выберите сотрудника</option>
+                            <option value="" disabled selected>Выберите услугу</option>
                             {
-                                this.state.staff.map((item, key) => {
+                                this.state.service.map((item, key) => {
                                     return (
                                         <option key={key} value={item.id}>{item.name} - {item.position}</option>
                                     );

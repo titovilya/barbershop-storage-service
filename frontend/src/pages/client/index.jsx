@@ -14,7 +14,7 @@ export const scheme = [
     { label: 'E-mail', name: 'email' }
 ]
 
-export const uri = 'client';
+export const uri = 'clients';
 
 export class ClientIndex extends React.Component {
     render() {

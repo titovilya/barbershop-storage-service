@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import services.ClientService;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -21,9 +22,9 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @GetMapping("/{phone}")
-    public ResponseEntity<ClientDTO> getClient(@PathVariable String phone) {
-        Client client = clientService.findByPhone(phone);
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> getClient(@PathVariable UUID id) {
+        Client client = clientService.findById(id);
         return new ResponseEntity<>(clientMapper.toDTO(client), HttpStatus.OK);
     }
 
@@ -33,9 +34,9 @@ public class ClientController {
         return new ResponseEntity<>(clientMapper.listToDTO(clients), HttpStatus.OK);
     }
 
-    @PutMapping("/{phone}")
-    public ResponseEntity updateClient(@PathVariable String phone, @RequestBody ClientDTO clientDTO) {
-        Client client = clientService.findByPhone(phone);
+    @PutMapping("/{id}")
+    public ResponseEntity updateClient(@PathVariable UUID id, @RequestBody ClientDTO clientDTO) {
+        Client client = clientService.findById(id);
         clientService.save(clientMapper.mergeWith(clientDTO, client));
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -47,9 +48,9 @@ public class ClientController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{phone}")
-    public ResponseEntity deleteClient(@PathVariable String phone) {
-        clientService.deleteByPhone(phone);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteClient(@PathVariable UUID id) {
+        clientService.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

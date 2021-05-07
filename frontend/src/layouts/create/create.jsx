@@ -11,16 +11,35 @@ uri
 */
 
 export class PageCreate extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+    state = {
+        fields: null
+    };
 
-        this.props.formScheme.forEach(item => this.state[item] = '');
+    componentDidMount() {
+        const fields = {};
+
+        this.props.formScheme.forEach(item => {
+            fields[item.name] = ''
+        });
+        this.setState({ fields });
     }
 
     onSubmit = async () => {
-        await simpleServer[this.props.uri].create(Object.assign(this.state));
-        window.location.pathname = `/${this.props.uri}`;
+        try {
+            await simpleServer[this.props.uri].create(Object.assign(this.state.fields));
+        } catch (e) {
+            console.log(e)
+        }
+        finally {
+            window.location.pathname = `/${this.props.uri}`;
+        }
+    }
+
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
@@ -30,13 +49,24 @@ export class PageCreate extends React.Component {
                 <div className="row">
                     <form className="col s12">
                         {
-                            this.props.formScheme.map((item, key) => (
+                            this.state.fields && this.props.formScheme.map((item, key) => (
                                 <div key={key} className="row">
                                     <div className="input-field col s6">
                                         <TextInput
                                             label={item.label}
-                                            value={this.state[item.name]}
-                                            onChange={(e) => this.setState({ [item.name]: e.target.value })}
+                                            value={this.state.fields[item.name]}
+                                            name={key}
+                                            onChange={(e) => {
+                                                this.setState(state => {
+                                                    return {
+                                                        ...state,
+                                                        fields: {
+                                                            ...state.fields,
+                                                            [item.name]: e.target.value
+                                                        }
+                                                    }
+                                                });
+                                            }}
                                             s={12}
                                         />
                                     </div>

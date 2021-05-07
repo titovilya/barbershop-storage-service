@@ -7,7 +7,7 @@ import {
 
 import { Header } from './components/header/header';
 
-import { LoginIndex } from './pages/login/index';
+import { LoginIndex, uri as loginUri } from './pages/login/index';
 import { StaffIndex } from './pages/staff/index';
 import { ServiceIndex } from './pages/service/index';
 import { ClientIndex } from './pages/client/index';
@@ -21,12 +21,12 @@ class App extends React.Component {
     super(props);
 
     const accessToken = localStorage.getItem('accessToken');
-    // if (!accessToken && window.location.pathname !== '/signin') {
-    //   window.location.pathname = '/signin';
-    // }
+    if (!accessToken && window.location.pathname !== `/${loginUri}`) {
+      window.location.pathname = `/${loginUri}`;
+    }
 
     this.state = {
-      accessToken: true,
+      accessToken,
     }
   }
 
@@ -38,7 +38,6 @@ class App extends React.Component {
             <Header />
             <div className="body">
               <Switch>
-
                 <Route>
 
                   <LoginIndex />

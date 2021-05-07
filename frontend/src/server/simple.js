@@ -1,156 +1,108 @@
-import { HEADERS } from './common';
+import { uri as staffUri } from '../pages/staff/index';
+import { uri as serviceUri } from '../pages/service/index';
+import { uri as clientUri } from '../pages/client/index';
+import { uri as recordUri } from '../pages/record/index';
 
-export const simpleServer = {
+const domain = 'http://localhost:8080';
+
+const getBearer = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    return 'Bearer ' + accessToken;
+}
+
+const HEADERS = {
+    'Authorization': getBearer(),
+    'Content-Type': 'application/json;charset=utf-8'
+}
+
+const get = async (uri) => {
+    const response = await fetch(`${domain}/${uri}`, {
+        method: 'GET',
+        headers: HEADERS,
+    });
+    return await response.json();
+}
+
+const del = async (uri, id) => {
+    const response = await fetch(`${domain}/${uri}/${id}`, {
+        method: 'DELETE',
+        headers: HEADERS,
+    });
+}
+
+const put = async (uri, obj) => {
+    const response = await fetch(`${domain}/${uri}`, {
+        method: 'PUT',
+        headers: HEADERS,
+        body: JSON.stringify(obj),
+    });
+    return await response.json();
+}
+
+const post = async (uri, obj) => {
+    const response = await fetch(`${domain}/${uri}`, {
+        method: 'POST',
+        headers: HEADERS,
+        body: JSON.stringify(obj),
+    });
+    return await response.json();
+}
+
+const simpleServer = {
     staff: {
         getAll: async () => {
-            return [
-                {
-                    id: 'hash1',
-                    name: 'Vova',
-                    phone: '8 888 999 00 00',
-                    position: 'Массажист',
-                    email: 'ggg@email.com'
-                },
-                {
-                    id: 'hash2',
-                    name: 'Vova',
-                    phone: '8 888 999 00 00',
-                    position: 'Массажист',
-                    email: 'ggg@email.com'
-                },
-                {
-                    id: 'hash3',
-                    name: 'Misha',
-                    phone: '8 888 999 00 00',
-                    position: 'Массажист',
-                    email: 'ggg@email.com'
-                }
-            ]
+            return await get(staffUri);
         },
         getCurr: async (id) => {
-            return {
-                id: 'hash',
-                name: 'Vova',
-                phone: '8 888 999 00 00',
-                position: 'Массажист',
-                email: 'ggg@email.com'
-            }
+            return await get(`${staffUri}/${id}`);
         },
-        edit: async (obj) => {
-
+        edit: async (id, obj) => {
+            return await put(`${staffUri}/${id}`, obj);
         },
         del: async (id) => {
-
+            return await del(`${staffUri}`, id);
         },
         create: async (obj) => {
-
+            return await post(`${staffUri}`, obj);
         },
     },
-    service: {
+    services: {
         getAll: async () => {
-            return [
-                {
-                    id: 'hash1',
-                    name: 'Массаж',
-                    price: '2600',
-                },
-                {
-                    id: 'hash2',
-                    name: 'Массаж-спины',
-                    price: '2600',
-                },
-                {
-                    id: 'hash3',
-                    name: 'Массаж2',
-                    price: '2600',
-                },
-            ]
+            return await get(serviceUri);
         },
         getCurr: async (id) => {
-            return {
-                id: 'dfsdfsdfsdfsdf',
-                name: 'Vova',
-                phone: '8 888 999 00 00',
-                post: 'Массажист',
-            }
+            return await get(`${serviceUri}/${id}`);
         },
-        edit: async (obj) => {
-
+        edit: async (id, obj) => {
+            return await put(`${serviceUri}/${id}`, obj);
         },
         del: async (id) => {
-
+            return await del(`${serviceUri}`, id);
         },
         create: async (obj) => {
-
+            return await post(`${serviceUri}`, obj);
         },
     },
-    client: {
+    clients: {
         getAll: async () => {
-            return [
-                {
-                    id: 'hash1',
-                    name: 'Vova',
-                    phone: '8 888 999 00 00',
-                    email: 'ggg@email.com'
-                },
-                {
-                    id: 'hash2',
-                    name: 'Vova',
-                    phone: '8 888 999 00 00',
-                    email: 'ggg@email.com'
-                },
-                {
-                    id: 'hash3',
-                    name: 'Misha',
-                    phone: '8 888 999 00 00',
-                }
-            ]
+            return await get(clientUri);
         },
         getCurr: async (id) => {
-            return {
-                id: 'hash2',
-                name: 'Vova',
-                phone: '8 888 999 00 00',
-                email: 'ggg@email.com'
-            }
+            return await get(`${clientUri}/${id}`);
         },
-        edit: async (obj) => {
-
+        edit: async (id, obj) => {
+            return await put(`${clientUri}/${id}`, obj);
         },
         del: async (id) => {
-
+            return await del(`${clientUri}`, id);
         },
         create: async (obj) => {
-
+            return await post(`${clientUri}`, obj);
         },
     },
-    record: {
+    appointments: {
         getAll: async () => {
-            const result = [
-                {
-                    id: 'hash1',
-                    staff: {
-                        id: 'hash3',
-                        name: 'Misha',
-                        phone: '8 888 999 00 00',
-                        position: 'Массажист',
-                        email: 'ggg@email.com'
-                    },
-                    client: {
-                        id: 'hash2',
-                        name: 'Vova',
-                        phone: '8 888 999 00 00',
-                        email: 'ggg@email.com'
-                    },
-                    service: {
-                        id: 'hash1',
-                        name: 'Массаж',
-                        price: '2600',
-                    },
-                    dateFrom: '20 мая 2021 11:00',
-                    dateTo: '20 мая 2021 12:00'
-                },
-            ];
+            const result = await get(recordUri);
 
             return result.map(item => {
                 return {
@@ -160,38 +112,14 @@ export const simpleServer = {
                     clientPhone: item.client.phone,
                     service: item.service.name,
                     price: item.service.price,
-                    dateFrom: item.dateFrom,
-                    dateTo: item.dateTo,
+                    dateFrom: item.date_from,
+                    dateTo: item.date_to,
                 }
             })
         },
         getCurr: async (id) => {
-            return {
-                id: 'hash1',
-                staff: {
-                    id: 'hash3',
-                    name: 'Misha',
-                    phone: '8 888 999 00 00',
-                    position: 'Массажист',
-                    email: 'ggg@email.com'
-                },
-                client: {
-                    id: 'hash2',
-                    name: 'Vova',
-                    phone: '8 888 999 00 00',
-                    email: 'ggg@email.com'
-                },
-                service: {
-                    id: 'hash1',
-                    name: 'Массаж',
-                    price: '2600',
-                },
-                dateFrom: '20 мая 2021 11:00',
-                dateTo: '20 мая 2021 12:00'
-            }
         },
         edit: async (obj) => {
-
         },
         del: async (id) => {
 
@@ -200,23 +128,17 @@ export const simpleServer = {
 
         },
         getTimes: async (date, staffId) => {
-            return [
-                {
-                    id: '11.00 - 12.00',
-                    dateFrom: '20 мая 2021 11:00',
-                    dateTo: '20 мая 2021 12:00'
-                },
-                {
-                    id: '12.00 - 13.00',
-                    dateFrom: '20 мая 2021 11:00',
-                    dateTo: '20 мая 2021 12:00'
-                },
-                {
-                    id: '13.00 - 14.00',
-                    dateFrom: '20 мая 2021 11:00',
-                    dateTo: '20 мая 2021 12:00'
-                }
-            ]
+            // let d = new Date();
+            let d = new Date(date);
+            console.log(d, date)
+            const result = await post('appointments/get-schedule', {
+                date_from: `${d.getDate()}.${d.getMonth()}.${d.getFullYear()} 00:00:00`,
+                staff_id: staffId,
+            });
+            console.log(result);
+            return result;
         }
     }
 }
+
+export { simpleServer };

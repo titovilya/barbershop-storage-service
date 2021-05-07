@@ -11,21 +11,37 @@ id
 */
 
 export class PageEdit extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-
-        this.props.formScheme.forEach(item => this.state[item.field] = '');
-    }
+    state = {
+        fields: null
+    };
 
     async componentDidMount() {
-        const res = await simpleServer[this.props.uri].getCurr();
-        this.setState(res);
+        const fields = {};
+        const res = await simpleServer[this.props.uri].getCurr(this.props.id);
+
+        this.props.formScheme.forEach(item => {
+            fields[item.name] = res[item.name];
+        });
+        this.setState({ fields });
+        console.log(fields)
     }
 
     onSubmit = async () => {
-        await simpleServer[this.props.uri].edit(Object.assign(this.state));
-        window.location.pathname = `/${this.props.uri}`;
+        try {
+            await simpleServer[this.props.uri].edit(this.props.id, Object.assign(this.state.fields));
+        } catch (e) {
+            console.log(e)
+        }
+        finally {
+            window.location.pathname = `/${this.props.uri}`;
+        }
+    }
+
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
@@ -36,20 +52,29 @@ export class PageEdit extends React.Component {
                     <div className="row">
                         <form className="col s12">
                             {
-                                this.props.formScheme.map((item, key) => {
-                                    return (
-                                        <div key={key} className="row">
-                                            <div className="input-field col s6">
-                                                <TextInput
-                                                    label={item.label}
-                                                    value={this.state[item.name]}
-                                                    onChange={(e) => this.setState({ [item.name]: e.target.value })}
-                                                    s={12}
-                                                />
-                                            </div>
+                                this.state.fields && this.props.formScheme.map((item, key) => (
+                                    <div key={key} className="row">
+                                        <div className="input-field col s6">
+                                            <TextInput
+                                                label={item.label}
+                                                value={this.state.fields[item.name]}
+                                                name={key}
+                                                onChange={(e) => {
+                                                    this.setState(state => {
+                                                        return {
+                                                            ...state,
+                                                            fields: {
+                                                                ...state.fields,
+                                                                [item.name]: e.target.value
+                                                            }
+                                                        }
+                                                    });
+                                                }}
+                                                s={12}
+                                            />
                                         </div>
-                                    )
-                                })
+                                    </div>
+                                ))
                             }
                             <button onClick={this.onSubmit} className="btn waves-effect waves-light" type="button" name="action">Сохранить</button>
                         </form>

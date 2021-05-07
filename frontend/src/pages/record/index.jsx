@@ -17,7 +17,7 @@ export const scheme = [
     { label: 'Дата/Время конца', name: 'dateTo' },
 ];
 
-export const uri = 'record';
+export const uri = 'appointments';
 
 export class RecordIndex extends React.Component {
     render() {

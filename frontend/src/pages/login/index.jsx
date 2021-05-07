@@ -8,17 +8,25 @@ import { TextInput } from 'react-materialize';
 import { PageTitle } from '../../components/pageTitle/pageTitle';
 import { post } from '../../server/server';
 
-export const uri = 'login'
+export const uri = 'signin'
 
 export class LoginIndex extends React.Component {
     onClick = async () => {
-        const response = await post('/users/signin', {
-            username: this.state.login,
-            password: this.state.password
+        const response = await fetch('http://localhost:8080/users/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.state.login,
+                password: this.state.password
+            })
         });
         const res = await response.json();
-        const accessToken = localStorage.setItem('accessToken', res.accessToken);
-        window.location.pathname = '/';
+        if (res.accessToken) {
+            const accessToken = localStorage.setItem('accessToken', res.accessToken);
+            window.location.pathname = '/';
+        }
     }
 
     state = {
@@ -48,8 +56,8 @@ export class LoginIndex extends React.Component {
                                     <div className="input-field col s6">
                                         <TextInput
                                             label='Пароль'
-                                            value={this.state.login}
-                                            onChange={(e) => this.setState({ login: e.target.value })}
+                                            value={this.state.password}
+                                            onChange={(e) => this.setState({ password: e.target.value })}
                                             s={12}
                                         />
                                     </div>

@@ -4,18 +4,19 @@ import model.models.Client;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 
 public interface ClientService {
 
-    boolean existsByPhone(String phone);
+    boolean existsById(UUID id);
 
-    Client findByPhone(String phone);
+    Client findById(UUID id);
 
     List<Client> findAll();
 
     @Transactional
-    void deleteByPhone(String phone);
+    void deleteById(UUID id);
 
     @Transactional
     void save(Client client);

@@ -13,7 +13,7 @@ export const scheme = [
     { name: 'price', label: 'Цена' },
 ];
 
-export const uri = 'service';
+export const uri = 'services';
 
 export class ServiceIndex extends React.Component {
     render() {

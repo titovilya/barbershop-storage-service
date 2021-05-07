@@ -12,13 +12,11 @@ import java.util.UUID;
 @Repository
 public interface ClientRepository extends CrudRepository<Client, UUID> {
 
-    boolean existsByPhone(String phone);
-
-    Client findByPhone(String phone);
+    boolean existsById(UUID id);
 
     List<Client> findAll();
 
     @Transactional
-    void deleteByPhone(String phone);
+    void deleteById(UUID id);
 
 }
