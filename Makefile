@@ -5,10 +5,17 @@ repack-app:
 	&& cd ../ \
 
 dev:
-	docker-compose up database backend_app
+	docker-compose up database backend_app app_ui
 
 stop:
 	docker-compose down
 
 build:
+	make build-ui \
+	&& make build-back
+
+build-ui:
+	docker-compose build app_ui
+
+build-back:
 	docker-compose build backend_app

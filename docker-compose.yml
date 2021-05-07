@@ -40,6 +40,16 @@ services:
     networks:
       - service-network
 
+  app_ui:
+    build: frontend
+    container_name: app_ui
+    ports:
+      - "8081:80"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    links:
+      - backend_app
+
 networks:
   service-network:
     driver: bridge
