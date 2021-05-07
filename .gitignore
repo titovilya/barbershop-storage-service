@@ -58,3 +58,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### NPM ###
+frontend/node_modules/

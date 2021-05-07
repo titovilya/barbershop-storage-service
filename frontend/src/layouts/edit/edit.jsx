@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { TextInput } from 'react-materialize';
 import { PageTitle } from '../../components/pageTitle/pageTitle';
-import { get, edit } from '../../server';
+import { simpleServer } from './../../server/simple';
 
 /* PROPS
 pageTitle
@@ -18,12 +19,12 @@ export class PageEdit extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await get(`/${this.props.uri}/${this.props.id}`);
+        const res = await simpleServer[this.props.uri].getCurr();
         this.setState(res);
     }
 
     onSubmit = async () => {
-        await edit(`/${this.props.uri}/${this.props.id}`, Object.assign(this.state));
+        await simpleServer[this.props.uri].edit(Object.assign(this.state));
         window.location.pathname = `/${this.props.uri}`;
     }
 
@@ -35,13 +36,16 @@ export class PageEdit extends React.Component {
                     <div className="row">
                         <form className="col s12">
                             {
-                                this.props.formScheme.map(item => {
-                                    console.log(item, this.state);
+                                this.props.formScheme.map((item, key) => {
                                     return (
-                                        <div className="row">
+                                        <div key={key} className="row">
                                             <div className="input-field col s6">
-                                                <input value={this.state[item.field]} onChange={(e) => this.setState({ [item.field]: e.target.value })} id={item.field} type="text" className="validate" />
-                                                <label htmlFor={item.field}>{item.name}</label>
+                                                <TextInput
+                                                    label={item.label}
+                                                    value={this.state[item.name]}
+                                                    onChange={(e) => this.setState({ [item.name]: e.target.value })}
+                                                    s={12}
+                                                />
                                             </div>
                                         </div>
                                     )
