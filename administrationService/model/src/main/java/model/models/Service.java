@@ -18,11 +18,11 @@ public class Service {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     private String name;
 
     private int price;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "int default 60")
     private int duration;
 }

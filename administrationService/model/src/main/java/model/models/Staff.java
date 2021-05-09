@@ -16,7 +16,7 @@ public class Staff {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(nullable = false, length = 64)
+    @Column(nullable = false, length = 64, unique = true)
     private String email;
 
     @Column(length = 30)
