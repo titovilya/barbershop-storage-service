@@ -24,5 +24,5 @@ public class Service {
     private int price;
 
     @Column(nullable = false, columnDefinition = "int default 60")
-    private int duration;
+    private int duration = 60;
 }

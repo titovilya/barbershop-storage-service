@@ -12,5 +12,5 @@ public class ServiceDTO {
 
     private int price;
 
-    private int duration;
+    private int duration = 60;
 }
