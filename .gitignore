@@ -29,7 +29,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **SNAPSHOT.jar
-**/changelog/db.**
+**/changelogs/db.**
 
 ### STS ###
 .apt_generated
