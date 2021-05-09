@@ -43,6 +43,14 @@ export class PageCreate extends React.Component {
     }
 
     render() {
+        let isDisabled = false;
+
+        this.props.formScheme.forEach((item) => {
+            if (this.state.fields && !this.state.fields[item.name]) {
+                isDisabled = true;
+            }
+        });
+
         return (
             <div className="container">
                 <PageTitle title={this.props.pageTitle} />
@@ -73,7 +81,7 @@ export class PageCreate extends React.Component {
                                 </div>
                             ))
                         }
-                        <button onClick={this.onSubmit} className="btn waves-effect waves-light" type="button" name="action">Добавить</button>
+                        <button disabled={isDisabled} onClick={this.onSubmit} className="btn waves-effect waves-light" type="button" name="action">Добавить</button>
                     </form>
                 </div>
             </div>

@@ -19,5 +19,5 @@ public interface ClientService {
     void deleteById(UUID id);
 
     @Transactional
-    void save(Client client);
+    Client save(Client client);
 }

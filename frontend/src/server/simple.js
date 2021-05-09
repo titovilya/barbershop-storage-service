@@ -122,20 +122,27 @@ const simpleServer = {
         edit: async (obj) => {
         },
         del: async (id) => {
-
+            return await del(`${recordUri}`, id);
         },
         create: async (obj) => {
-
+            return await post(`${recordUri}`, obj);
         },
         getTimes: async (date, staffId) => {
-            // let d = new Date();
+            function correctDay(number) {
+                const str = number.toString();
+                if (str.length === 1) {
+                    return '0' + str;
+                }
+                return str;
+            }
+
             let d = new Date(date);
-            console.log(d, date)
+
             const result = await post('appointments/get-schedule', {
-                date_from: `${d.getDate()}.${d.getMonth()}.${d.getFullYear()} 00:00:00`,
+                date_from: `${correctDay(d.getDate())}.${correctDay(d.getMonth())}.${d.getFullYear()} 00:00:00`,
                 staff_id: staffId,
             });
-            console.log(result);
+
             return result;
         }
     }

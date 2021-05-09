@@ -34,7 +34,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <div className="wrapper">
+          <div style={{paddingBottom: '120px'}} className="wrapper">
             <Header />
             <div className="body">
               <Switch>

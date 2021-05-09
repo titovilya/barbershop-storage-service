@@ -42,10 +42,10 @@ public class ClientController {
     }
 
     @PostMapping("")
-    public ResponseEntity createClient(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
         Client client = clientMapper.toEntity(clientDTO);
-        clientService.save(client);
-        return new ResponseEntity(HttpStatus.CREATED);
+        Client responseClient = clientService.save(client);
+        return new ResponseEntity(clientMapper.toDTO(responseClient), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
