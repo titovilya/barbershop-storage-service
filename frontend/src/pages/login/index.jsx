@@ -12,7 +12,7 @@ export const uri = 'signin'
 
 export class LoginIndex extends React.Component {
     onClick = async () => {
-        const response = await fetch('http://localhost:8080/users/signin', {
+        const response = await fetch('http://prognosist.ru:8080/users/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
