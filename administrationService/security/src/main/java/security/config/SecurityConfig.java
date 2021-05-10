@@ -55,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8081",
                         "http://localhost:3000",
+                        "http://prognosist.ru:3000",
+                        "https://prognosist.ru:3000",
                         "http://prognosist.ru:8081",
                         "https://prognosist.ru:8081",
                         "https://prognosist.ru",
