@@ -27,4 +27,5 @@ migrate:
 
 db-clean:
 	cd administrationService/ \
+	&& rm application/src/main/resources/db/changelogs/* \
 	&& mvn liquibase:dropAll
