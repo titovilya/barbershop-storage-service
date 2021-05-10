@@ -26,4 +26,5 @@ migrate:
 	mvn liquibase:update
 
 db-clean:
+	cd administrationService/
 	mvn liquibase:dropAll
