@@ -44,13 +44,13 @@ public class RequiredService implements InitialService {
 
     @Override
     public void createSuperUser() {
-        if (!userService.existsByUsername("owner")) {
+        if (!userService.existsByUsername("admin")) {
             User user = new User();
             user.setEmail("superadmin@gmail.com");
-            user.setPassword(passwordEncoder.encode("owner"));
+            user.setPassword(passwordEncoder.encode("admin"));
             user.setRole(roleService.findByCode("admin"));
             user.setName("Ilya");
-            user.setUsername("owner");
+            user.setUsername("admin");
             userService.save(user);
         }
     }
