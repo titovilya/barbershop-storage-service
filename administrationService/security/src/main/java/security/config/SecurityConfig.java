@@ -55,12 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8081",
                         "http://localhost:3000",
-                        "http:prognosist.ru:8081",
-                        "https:prognosist.ru:8081",
-                        "https:prognosist.ru",
-                        "http:prognosist.ru",
-                        "http:prognosist.ru:80",
-                        "https:prognosist.ru:80")
+                        "http://prognosist.ru:8081",
+                        "https://prognosist.ru:8081",
+                        "https://prognosist.ru",
+                        "http://prognosist.ru",
+                        "http://prognosist.ru:80",
+                        "https://prognosist.ru:80")
                 .allowCredentials(true)
                 .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS");
     }
