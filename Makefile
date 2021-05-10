@@ -19,3 +19,11 @@ build-ui:
 
 build-back:
 	docker-compose build backend_app
+
+migrate:
+	cd administrationService/
+	mvn clean install liquibase:diff
+	mvn liquibase:update
+
+db-clean:
+	mvn liquibase:dropAll
