@@ -3,7 +3,7 @@ import { uri as serviceUri } from '../pages/service/index';
 import { uri as clientUri } from '../pages/client/index';
 import { uri as recordUri } from '../pages/record/index';
 
-const domain = 'http://localhost:8080';
+const domain = 'http://prognosist.ru:8080';
 
 const getBearer = () => {
     const accessToken = localStorage.getItem('accessToken');
