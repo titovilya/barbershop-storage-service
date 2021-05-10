@@ -22,9 +22,9 @@ build-back:
 
 migrate:
 	cd administrationService/
-	mvn clean install liquibase:diff
-	mvn liquibase:update
+	&& mvn clean install liquibase:diff
+	&& mvn liquibase:update
 
 db-clean:
 	cd administrationService/
-	mvn liquibase:dropAll
+	&& mvn liquibase:dropAll
