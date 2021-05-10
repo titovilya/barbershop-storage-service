@@ -21,10 +21,10 @@ build-back:
 	docker-compose build backend_app
 
 migrate:
-	cd administrationService/
-	&& mvn clean install liquibase:diff
+	cd administrationService/ \
+	&& mvn clean install liquibase:diff \
 	&& mvn liquibase:update
 
 db-clean:
-	cd administrationService/
+	cd administrationService/ \
 	&& mvn liquibase:dropAll
