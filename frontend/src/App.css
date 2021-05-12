@@ -70,7 +70,7 @@ img {
 /* About Me
 ---------------------*/
 .chat_window {
-  margin-top: 100px;
+  margin-top: 200px;
   position: absolute;
   width: calc(100% - 20px);
   max-width: 1200px;

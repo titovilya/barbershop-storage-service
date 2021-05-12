@@ -90,7 +90,7 @@ export class RecordCreate extends React.Component {
         } catch (e) {
             console.log(e)
         } finally {
-            window.location.pathname = `/${this.props.uri}`;
+            window.location.pathname = `/`;
         }
     }
 

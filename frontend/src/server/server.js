@@ -1,4 +1,4 @@
-const domain = 'http://localhost:8080';
+const domain = 'http://prognosist.ru:8080';
 
 const getBearer = () => {
     const accessToken = localStorage.getItem('accessToken');
