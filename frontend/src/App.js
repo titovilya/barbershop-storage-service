@@ -33,7 +33,7 @@ class App extends React.Component {
             window.location.pathname = `/${loginUri}`;
         }
 
-        if (window.location.pathname === `/${loginUri}`) {
+        if (window.location.pathname === `/${loginUri}` && isAuth) {
             window.location.pathname = `/`;
         }
 
