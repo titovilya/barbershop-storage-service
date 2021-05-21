@@ -6,13 +6,13 @@ import {
 
 import { TextInput } from 'react-materialize';
 import { PageTitle } from '../../components/pageTitle/pageTitle';
-import { post } from '../../server/server';
+import { domain } from './../../server/simple';
 
 export const uri = 'signin'
 
 export class LoginIndex extends React.Component {
     onClick = async () => {
-        const response = await fetch('http://prognosist.ru:8080/users/signin', {
+        const response = await fetch(`${domain}/users/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,6 +23,7 @@ export class LoginIndex extends React.Component {
             })
         });
         const res = await response.json();
+
         if (res.accessToken) {
             const accessToken = localStorage.setItem('accessToken', res.accessToken);
             window.location.pathname = '/';

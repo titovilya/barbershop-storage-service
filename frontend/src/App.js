@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
+    BrowserRouter as Router,
+    Route,
+    Switch,
 } from "react-router-dom";
 
 import { Header } from './components/header/header';
@@ -14,47 +14,69 @@ import { ClientIndex } from './pages/client/index';
 import { RecordIndex } from './pages/record/index';
 import { AboutIndex } from './pages/about';
 
+import { validateTocken } from './server/simple';
+
 import './App.css';
 
+
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+    state = {
+        accessToken: null,
+        isAuth: false,
+    };
 
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken && window.location.pathname !== `/${loginUri}`) {
-      window.location.pathname = `/${loginUri}`;
+    async componentDidMount() {
+        let isAuth = await validateTocken();
+
+        const accessToken = localStorage.getItem('accessToken');
+        if (window.location.pathname !== `/${loginUri}` && !isAuth) {
+            window.location.pathname = `/${loginUri}`;
+        }
+
+        if (window.location.pathname === `/${loginUri}`) {
+            window.location.pathname = `/`;
+        }
+
+        this.setState({
+            accessToken,
+            isAuth,
+        });
     }
 
-    this.state = {
-      accessToken,
+    render() {
+        return (
+            <>
+                <Router>
+                    <Switch>
+
+                        <div style={{ paddingBottom: '120px' }} className="wrapper">
+                            {
+                                this.state.isAuth ? (
+                                    <Route>
+                                        <Header />
+                                        <div className="body">
+                                            <Switch>
+                                                <Route>
+
+                                                    <RecordIndex />
+                                                    <StaffIndex />
+                                                    <ServiceIndex />
+                                                    <ClientIndex />
+                                                    <AboutIndex />
+
+                                                </Route>
+                                            </Switch>
+                                        </div>
+                                    </Route>
+                                ) : <Route><LoginIndex /></Route>
+                            }
+                        </div>
+
+                    </Switch>
+                </Router>
+            </>
+        );
     }
-  }
-
-  render() {
-    return (
-      <>
-        <Router>
-          <div style={{paddingBottom: '120px'}} className="wrapper">
-            <Header />
-            <div className="body">
-              <Switch>
-                <Route>
-
-                  <LoginIndex />
-                  <RecordIndex />
-                  <StaffIndex />
-                  <ServiceIndex />
-                  <ClientIndex />
-                  <AboutIndex />
-
-                </Route>
-              </Switch>
-            </div>
-          </div>
-        </Router>
-      </>
-    );
-  }
 }
 
 export default App;
