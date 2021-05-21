@@ -5,18 +5,19 @@ import { uri as recordUri } from '../pages/record/index';
 
 export const domain = 'http://prognosist.ru:8080';
 
+const accessToken = localStorage.getItem('accessToken');
 const getBearer = () => {
     const accessToken = localStorage.getItem('accessToken');
     return 'Bearer ' + accessToken;
 }
 
 const HEADERS = {
-    'Authorization': getBearer(),
+    'Authorization': accessToken ? getBearer() : undefined,
     'Content-Type': 'application/json;charset=utf-8'
 }
 
 export const validateTocken = async () => {
-    const response = await fetch(`${domain}/users/me`, {
+    const response = await fetch(`${domain}/clients`, {
         method: 'GET',
         headers: HEADERS,
     });
